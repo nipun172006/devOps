@@ -11,7 +11,7 @@ This is my DevOps homework repository. I ran the tasks on my Ubuntu EC2 instance
 | Linux: `journalctl` | Complete |
 | Linux command cheat sheet | Complete |
 | System information shell script | Complete |
-| Networking fundamentals | Pending |
+| Networking fundamentals | Complete |
 | Git and cherry-pick | Pending |
 | Docker applications | Pending |
 | Docker multi-stage build | Pending |
