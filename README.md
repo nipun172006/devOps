@@ -7,7 +7,7 @@ Hands-on DevOps homework completed by Nipun Patel Thumu. This repository contain
 | Module | Status |
 | --- | --- |
 | Linux: soft and hard links | Complete |
-| Linux: `adduser` vs `useradd` | Pending |
+| Linux: `adduser` vs `useradd` | Complete |
 | Linux: `journalctl` | Pending |
 | Linux command cheat sheet | Pending |
 | System information shell script | Pending |
