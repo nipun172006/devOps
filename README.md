@@ -14,7 +14,7 @@ This is my DevOps homework repository. I ran the tasks on my Ubuntu EC2 instance
 | Networking fundamentals | Complete |
 | Git and cherry-pick | Complete |
 | Docker applications | Complete |
-| Docker multi-stage build | Pending |
+| Docker multi-stage build | Complete |
 | Docker networking and volumes | Pending |
 
 ## Environment
