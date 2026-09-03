@@ -13,7 +13,7 @@ This is my DevOps homework repository. I ran the tasks on my Ubuntu EC2 instance
 | System information shell script | Complete |
 | Networking fundamentals | Complete |
 | Git and cherry-pick | Complete |
-| Docker applications | Pending |
+| Docker applications | Complete |
 | Docker multi-stage build | Pending |
 | Docker networking and volumes | Pending |
 
