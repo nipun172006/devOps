@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+*.pem
+*.key
+node_modules/
+dist/
+target/
+__pycache__/
+*.pyc
+process-output/
