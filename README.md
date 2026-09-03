@@ -1,6 +1,6 @@
 # DevOps Learning Labs
 
-Hands-on DevOps homework completed by Nipun Patel Thumu. This repository contains original lab work, runnable examples, command transcripts, and explanations for Linux, shell scripting, networking, Git, and Docker.
+This is my DevOps homework repository. I ran the tasks on my Ubuntu EC2 instance and saved my commands, screenshots, scripts, and short notes here.
 
 ## Progress
 
@@ -10,7 +10,7 @@ Hands-on DevOps homework completed by Nipun Patel Thumu. This repository contain
 | Linux: `adduser` vs `useradd` | Complete |
 | Linux: `journalctl` | Complete |
 | Linux command cheat sheet | Complete |
-| System information shell script | Pending |
+| System information shell script | Complete |
 | Networking fundamentals | Pending |
 | Git and cherry-pick | Pending |
 | Docker applications | Pending |

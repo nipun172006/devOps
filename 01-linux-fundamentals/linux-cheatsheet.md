@@ -19,7 +19,7 @@ chmod 640 demo/notes.txt
 ls -l demo/notes.txt
 ```
 
-![Practising file and permission commands](evidence/task4-files-and-permissions.png)
+![File and permission commands](evidence/file-commands.png)
 
 The permission mode `640` gives the owner read and write access, the group read access, and everyone else no access.
 
@@ -35,7 +35,7 @@ free -h
 ps aux --sort=-%mem | head -n 8
 ```
 
-![Inspecting system information, storage, memory, and processes](evidence/task4-system-commands.png)
+![System commands](evidence/system-commands.png)
 
 During this exercise, the root filesystem was 59% used. The process listing was sorted by memory usage so the largest consumers appeared first.
 
@@ -49,7 +49,7 @@ ping -c 4 google.com
 curl -I https://example.com
 ```
 
-![Inspecting interfaces, routes, ports, connectivity, and HTTP headers](evidence/task4-network-commands.png)
+![Network commands](evidence/network-commands.png)
 
 The server had a default route through its VPC gateway, SSH was listening on port `22`, all four ping packets were returned, and the HTTP request returned status `200`.
 

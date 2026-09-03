@@ -16,7 +16,7 @@ command -V useradd
 sudo adduser --disabled-password --gecos "DevOps Student" devopsstudent
 ```
 
-![Checking both commands and creating the test user](evidence/task2-adduser-created.png)
+![Creating the test user](evidence/adduser-command.png)
 
 `--disabled-password` creates the temporary account without embedding or displaying a reusable password.
 
@@ -28,7 +28,7 @@ id devopsstudent
 sudo ls -la /home/devopsstudent
 ```
 
-![Verifying the test user's identity and home directory](evidence/task2-user-verified.png)
+![Checking the new user](evidence/user-details.png)
 
 Important output:
 

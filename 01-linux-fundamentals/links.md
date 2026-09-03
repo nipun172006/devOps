@@ -16,17 +16,17 @@ The exercise was performed directly on Nipun's Ubuntu EC2 instance. The AWS Cons
 
 ## AWS Environment Evidence
 
-![AWS EC2 instance used for the task](evidence/task1-aws-ec2-instance.png)
+![My AWS EC2 instance](evidence/ec2-instance.png)
 
 ## Terminal Evidence
 
 ### Creating and inspecting the links
 
-![Creating and inspecting soft and hard links](evidence/task1-links-created.png)
+![Creating soft and hard links](evidence/links-created.png)
 
 ### Deleting the original and testing both links
 
-![Testing links after deleting the original file](evidence/task1-original-deleted.png)
+![Links after deleting the original file](evidence/links-after-delete.png)
 
 ## Commands
 

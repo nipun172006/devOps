@@ -15,7 +15,7 @@ journalctl --version
 sudo journalctl -n 20 --no-pager
 ```
 
-![Checking the journalctl version and recent system logs](evidence/task3-journalctl-system.png)
+![Recent system logs](evidence/journalctl-logs.png)
 
 The output confirms that the server uses systemd and shows the 20 most recent journal entries. These entries include account creation, `sudo` sessions, SSH activity, and system services.
 
@@ -26,7 +26,7 @@ systemctl status ssh --no-pager
 sudo journalctl -u ssh --since today --no-pager | tail -n 30
 ```
 
-![Checking SSH service status and SSH journal entries](evidence/task3-journalctl-ssh.png)
+![SSH service logs](evidence/ssh-logs.png)
 
 The service status shows that SSH is active. The filtered journal includes the successful public-key login used for this lab as well as unsuccessful connection attempts from the internet.
 
