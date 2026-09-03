@@ -6,16 +6,16 @@ This is my DevOps homework repository. I ran the tasks on my Ubuntu EC2 instance
 
 | Module | Status |
 | --- | --- |
-| Linux: soft and hard links | Complete |
-| Linux: `adduser` vs `useradd` | Complete |
-| Linux: `journalctl` | Complete |
-| Linux command cheat sheet | Complete |
-| System information shell script | Complete |
-| Networking fundamentals | Complete |
-| Git and cherry-pick | Complete |
-| Docker applications | Complete |
-| Docker multi-stage build | Complete |
-| Docker networking and volumes | Complete |
+| [Linux: soft and hard links](01-linux-fundamentals/README.md) | Complete |
+| [Linux: `adduser` vs `useradd`](01-linux-fundamentals/README.md) | Complete |
+| [Linux: `journalctl`](01-linux-fundamentals/README.md) | Complete |
+| [Linux command cheat sheet](01-linux-fundamentals/README.md) | Complete |
+| [System information shell script](02-shell-scripting/README.md) | Complete |
+| [Networking fundamentals](03-networking/README.md) | Complete |
+| [Git and cherry-pick](04-git/README.md) | Complete |
+| [Docker applications](05-docker-apps/README.md) | Complete |
+| [Docker multi-stage build](06-docker-multistage/README.md) | Complete |
+| [Docker networking and volumes](07-docker-networking/README.md) | Complete |
 
 ## Environment
 
