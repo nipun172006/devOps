@@ -19,6 +19,7 @@ This is my DevOps homework repository. I saved my commands, screenshots, scripts
 | [Kubernetes fundamentals](08-kubernetes-fundamentals/README.md) | Complete |
 | [Kubernetes Pods, ReplicaSets & Deployments](09-kubernetes-core-objects/README.md) | Complete |
 | [Kubernetes Networking & Services](10-kubernetes-services/README.md) | Complete |
+| [Kubernetes ConfigMaps, Secrets & Ingress](11-kubernetes-configmaps-secrets-ingress/README.md) | Complete |
 
 ## Environment
 
