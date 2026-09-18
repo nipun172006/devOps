@@ -1,6 +1,6 @@
 # DevOps Learning Labs
 
-This is my DevOps homework repository. I ran the tasks on my Ubuntu EC2 instance and saved my commands, screenshots, scripts, and short notes here.
+This is my DevOps homework repository. I saved my commands, screenshots, scripts, and short notes from my Ubuntu EC2 and local Mac lab environments here.
 
 ## Progress
 
@@ -16,10 +16,11 @@ This is my DevOps homework repository. I ran the tasks on my Ubuntu EC2 instance
 | [Docker applications](05-docker-apps/README.md) | Complete |
 | [Docker multi-stage build](06-docker-multistage/README.md) | Complete |
 | [Docker networking and volumes](07-docker-networking/README.md) | Complete |
+| [Kubernetes fundamentals](08-kubernetes-fundamentals/README.md) | Complete |
 
 ## Environment
 
-All were executed on Nipun's Ubuntu AWS EC2 instance. Its documentation includes AWS Console and terminal evidence connecting the instance to the submitted results.
+The Linux, shell, networking, Git, and Docker tasks were executed on my Ubuntu AWS EC2 instance. The Kubernetes fundamentals lab was executed locally on my Mac with Minikube using the Docker driver.
 
 ![My AWS EC2 instance](01-linux-fundamentals/evidence/ec2-instance.png)
 
