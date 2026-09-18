@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app-clusterip
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-clusterip
+  template:
+    metadata:
+      labels:
+        app: web-clusterip
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service-clusterip
+spec:
+  selector:
+    app: web-clusterip
+  ports:
+    - port: 8080
+      targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-client
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl:8.10.1
+      command: ["sh", "-c", "sleep 3600"]

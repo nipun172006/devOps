@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: manual-external-service
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: manual-external-service
+subsets:
+  - addresses:
+      - ip: 1.1.1.1
+    ports:
+      - name: http
+        port: 80
+        protocol: TCP
