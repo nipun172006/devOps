@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-multi-container
+spec:
+  volumes:
+    - name: shared
+      emptyDir: {}
+  initContainers:
+    - name: init-content
+      image: busybox:1.36
+      command: ["sh", "-c", "echo Initialized by init container > /shared/app.log"]
+      volumeMounts:
+        - name: shared
+          mountPath: /shared
+  containers:
+    - name: app
+      image: busybox:1.36
+      command: ["sh", "-c", "while true; do echo App heartbeat >> /shared/app.log; sleep 5; done"]
+      volumeMounts:
+        - name: shared
+          mountPath: /shared
+    - name: sidecar
+      image: busybox:1.36
+      command: ["sh", "-c", "tail -n+1 -F /shared/app.log"]
+      volumeMounts:
+        - name: shared
+          mountPath: /shared

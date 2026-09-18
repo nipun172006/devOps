@@ -17,6 +17,7 @@ This is my DevOps homework repository. I saved my commands, screenshots, scripts
 | [Docker multi-stage build](06-docker-multistage/README.md) | Complete |
 | [Docker networking and volumes](07-docker-networking/README.md) | Complete |
 | [Kubernetes fundamentals](08-kubernetes-fundamentals/README.md) | Complete |
+| [Kubernetes Pods, ReplicaSets & Deployments](09-kubernetes-core-objects/README.md) | Complete |
 
 ## Environment
 

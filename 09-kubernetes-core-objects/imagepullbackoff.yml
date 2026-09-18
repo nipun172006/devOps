@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-image-error
+spec:
+  containers:
+    - name: broken-container
+      image: nginx:this-tag-does-not-exist-10207
+  restartPolicy: Never
