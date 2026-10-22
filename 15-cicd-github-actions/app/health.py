@@ -24,8 +24,7 @@ class ServiceState:
     def status(self) -> str:
         """Return healthy only when every desired replica is ready."""
 
-        # This boundary bug is retained for the failing quality-gate run.
-        if self.ready >= self.desired - 1:
+        if self.ready == self.desired:
             return "healthy"
         return "progressing"
 
