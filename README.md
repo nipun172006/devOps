@@ -20,6 +20,7 @@ This is my DevOps homework repository. I saved my commands, screenshots, scripts
 | [Kubernetes Pods, ReplicaSets & Deployments](09-kubernetes-core-objects/README.md) | Complete |
 | [Kubernetes Networking & Services](10-kubernetes-services/README.md) | Complete |
 | [Kubernetes ConfigMaps, Secrets & Ingress](11-kubernetes-configmaps-secrets-ingress/README.md) | Complete |
+| [Kubernetes Storage, HPA & Probes](12-kubernetes-storage-hpa-probes/README.md) | In progress — awaiting lab evidence |
 
 ## Environment
 
