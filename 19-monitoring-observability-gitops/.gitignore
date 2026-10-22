@@ -1,0 +1,16 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local build output
+build/
+dist/
+*.egg-info/
+
+# Local runtime files
+.env
+*.log
+.DS_Store

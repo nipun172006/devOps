@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: module19-api
+  namespace: observability-lab
+  labels:
+    release: monitoring
+    app.kubernetes.io/part-of: module19
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: module19-api
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 10s

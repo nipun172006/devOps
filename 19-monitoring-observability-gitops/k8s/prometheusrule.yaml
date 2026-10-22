@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: module19-api
+  namespace: observability-lab
+  labels:
+    release: monitoring
+    app.kubernetes.io/part-of: module19
+spec:
+  groups:
+    - name: module19-api
+      rules:
+        - alert: Module19ApiErrors
+          expr: sum(rate(module19_http_requests_total{status=~"5.."}[2m])) > 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Module 19 API is returning errors
+            description: The Module 19 API has returned at least one 5xx response in the last two minutes.
