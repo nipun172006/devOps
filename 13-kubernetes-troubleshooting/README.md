@@ -133,6 +133,8 @@ kubectl exec -n troubleshooting-lab service-client -- \
 The backend Pod was healthy, but its label did not match the Service selector.
 The Service therefore had no endpoint and the in-cluster request failed.
 
+![Broken Service selector and missing endpoint](evidence/05-service-selector-broken.png)
+
 I corrected only the Service selector and repeated the checks:
 
 ```bash
@@ -146,7 +148,11 @@ kubectl exec -n troubleshooting-lab service-client -- \
 ```
 
 The corrected selector matched the ready Nginx Pod, the Service gained an
-endpoint, and the client received the Nginx page through the Service name.
+endpoint at `10.244.0.43:80`, and the client received
+`<title>Welcome to nginx!</title>` through the Service name. Pod addresses are
+temporary and can differ on another run.
+
+![Corrected Service selector and successful request](evidence/06-service-selector-fixed.png)
 
 ## Cleanup
 
