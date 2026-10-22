@@ -1,29 +1,16 @@
-# Kubernetes Storage, HPA, and Probes
+# My Kubernetes Storage, Autoscaling and Probes Practice
 
-This module contains three hands-on Kubernetes labs completed on Minikube. The
-manifests are intentionally small so that each result can be explained and
-verified from the terminal.
+I used my local Minikube cluster on macOS with the Docker driver to practise
+persistent storage, readiness and liveness probes, and CPU-based horizontal
+autoscaling. The YAML files in this folder are the exact manifests I used in
+the lab.
 
-## Prerequisites
-
-```bash
-minikube start
-kubectl cluster-info
-kubectl get nodes
-```
-
-Run all commands from this module's directory:
-
-```bash
-cd 12-kubernetes-storage-hpa-probes
-```
-
-## Lab 1: Prove that data survives Pod recreation
+## Task 1: Prove that data survives Pod recreation
 
 Manifest: [`01-persistent-storage/storage.yaml`](01-persistent-storage/storage.yaml)
 
-The manifest creates a namespace, a dynamically provisioned
-`PersistentVolumeClaim`, and a BusyBox Pod that mounts the claim at `/data`.
+I created a namespace, a dynamically provisioned `PersistentVolumeClaim`, and
+a BusyBox Pod that mounts the claim at `/data`.
 
 ```bash
 kubectl apply -f 01-persistent-storage/storage.yaml
@@ -41,8 +28,8 @@ was written to `/data/proof.txt`.
 
 ![PVC bound and file written](evidence/01-pvc-bound-and-file.png)
 
-Delete only the Pod, create it again from the same manifest, and read the file
-from the unchanged claim:
+I then deleted only the Pod, created it again from the same manifest, and read
+the file from the unchanged claim:
 
 ```bash
 OLD_UID=$(kubectl get pod storage-demo -n storage-lab -o jsonpath='{.metadata.uid}')
@@ -68,7 +55,7 @@ The Pod is disposable, while the claim represents storage with a lifecycle
 independent of that Pod. Reusing the claim mounts the same data into the new
 Pod.
 
-## Lab 2: Observe readiness and liveness behavior
+## Task 2: Observe readiness and liveness behavior
 
 Manifest: [`02-probes/probe-demo.yaml`](02-probes/probe-demo.yaml)
 
@@ -81,7 +68,7 @@ kubectl rollout status deployment/probe-demo -n probes-lab --timeout=120s
 kubectl get deployment,pods -n probes-lab -o wide
 ```
 
-First, remove only the readiness file:
+I first removed only the readiness file:
 
 ```bash
 POD=$(kubectl get pod -n probes-lab -l app=probe-demo \
@@ -89,16 +76,18 @@ POD=$(kubectl get pod -n probes-lab -l app=probe-demo \
 kubectl exec -n probes-lab "$POD" -- rm /usr/share/nginx/html/ready
 sleep 6
 kubectl get pod -n probes-lab "$POD"
-kubectl describe pod -n probes-lab "$POD" | \
-  sed -n '/Conditions:/,/Volumes:/p'
+kubectl get endpoints probe-demo -n probes-lab
 ```
 
-Take **Screenshot 3** now. It must show `READY 0/1`, while `STATUS` remains
-`Running`, plus the failed readiness condition. Save it as
-`evidence/03-readiness-failure.jpg`.
+![Readiness failure removes the Service endpoint](evidence/03-readiness-failure.png)
 
-A failed readiness probe removes a Pod from Service endpoints but does not
-restart its container. Restore readiness, then trigger a liveness failure:
+The Pod remained `Running` with zero restarts, but its readiness changed to
+`0/1` and the Service no longer had a ready endpoint. This demonstrated that a
+failed readiness probe stops traffic without restarting the container. The
+warning refers to the older `Endpoints` API; `EndpointSlice` is the current
+replacement and the warning did not affect the test.
+
+I restored readiness and then removed the liveness health file:
 
 ```bash
 kubectl exec -n probes-lab "$POD" -- \
@@ -114,16 +103,19 @@ AFTER=$(kubectl get pod -n probes-lab "$POD" \
 echo "Restart count before liveness failure: $BEFORE"
 echo "Restart count after liveness failure:  $AFTER"
 kubectl get pod -n probes-lab "$POD"
-kubectl get events -n probes-lab --sort-by=.lastTimestamp | tail -8
+kubectl get events -n probes-lab \
+  --field-selector involvedObject.name="$POD" \
+  --sort-by=.lastTimestamp | tail -8
 ```
 
-Take **Screenshot 4** now. It must show a higher restart count and a liveness
-probe failure/restart event. Save it as `evidence/04-liveness-restart.jpg`.
+![Liveness failure restarts and recovers the container](evidence/04-liveness-restart.png)
 
-The same Pod object remains, but kubelet restarts its unhealthy container. The
-container startup command recreates both health files, allowing it to recover.
+The restart count increased from `0` to `1`. Events recorded the HTTP `404`,
+the failed liveness probe, and kubelet killing the unhealthy container. The
+same Pod recovered to `1/1 Running` because the container startup command
+recreated both health files.
 
-## Lab 3: Scale a Deployment using CPU utilization
+## Task 3: Scale a Deployment using CPU utilization
 
 Manifests:
 
@@ -147,9 +139,6 @@ kubectl get deployment,service,hpa -n autoscale-lab
 kubectl top pods -n autoscale-lab
 ```
 
-Take **Screenshot 5** now. It must show one ready application replica, the HPA
-target, and CPU metrics. Save it as `evidence/05-hpa-before-load.jpg`.
-
 Generate traffic and watch the HPA. Metrics and scaling normally take one or
 two minutes to appear:
 
@@ -167,9 +156,6 @@ kubectl get deployment,pods -n autoscale-lab -o wide
 kubectl top pods -n autoscale-lab
 ```
 
-Take **Screenshot 6** now. It must show CPU above the target and more than one
-application replica. Save it as `evidence/06-hpa-scaled-up.jpg`.
-
 Stop the load and observe scale-down. The manifest shortens the scale-down
 stabilization window to 60 seconds for this lab, but metric updates can still
 take a few minutes.
@@ -178,10 +164,6 @@ take a few minutes.
 kubectl delete -f 03-hpa/load-generator.yaml
 kubectl get hpa,pods -n autoscale-lab -w
 ```
-
-When the deployment returns to one replica, press **Control+C** and take
-**Screenshot 7**. It must show the HPA and the single remaining application
-Pod. Save it as `evidence/07-hpa-scaled-down.jpg`.
 
 The Deployment defines a CPU request because HPA calculates utilization as a
 percentage of the requested CPU. Under sustained load it increases replicas;
@@ -197,7 +179,7 @@ Deleting `storage-lab` also deletes its namespaced PVC. On Minikube's default
 dynamic provisioner, the associated volume normally uses a `Delete` reclaim
 policy and is removed as well.
 
-## What I learned
+## What I understood
 
 - A PVC requests storage, while a PV represents the cluster storage resource
   bound to that request.
