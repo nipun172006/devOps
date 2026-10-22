@@ -24,6 +24,7 @@ This is my DevOps homework repository. I saved my commands, screenshots, scripts
 | [Kubernetes Troubleshooting](13-kubernetes-troubleshooting/README.md) | Complete |
 | [Helm Chart & Release Lifecycle](14-helm/README.md) | Complete |
 | [CI Pipeline with GitHub Actions](15-cicd-github-actions/README.md) | Complete |
+| [Complete CI/CD DevSecOps Pipeline](16-complete-cicd-devsecops/README.md) | In progress — awaiting evidence |
 
 ## Environment
 
