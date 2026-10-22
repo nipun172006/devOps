@@ -61,6 +61,8 @@ the dependent build job was skipped.
 This demonstrates the `needs: test` quality gate: a build cannot be published
 unless the automated tests pass.
 
+![GitHub Actions test failure caused by the incorrect health boundary](evidence/02-ci-test-failure.png)
+
 ## Task 3: Correct the bug and publish artifacts
 
 I corrected the health classification so only `ready == desired` is healthy.
