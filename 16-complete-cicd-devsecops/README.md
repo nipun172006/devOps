@@ -61,7 +61,7 @@ The validation target runs Ruff, twelve Pytest checks with coverage, Bandit
 SAST, pip-audit SCA, and a repository secret scan. Any failure stops the
 command and blocks later delivery stages.
 
-<!-- Evidence 01 will be added after the verified local run. -->
+![Local lint, tests, coverage, SAST, dependency audit, and secret scan](evidence/01-local-validation.png)
 
 ## Task 2: Build, scan, and test the container
 
@@ -76,7 +76,11 @@ docker stop module16-api
 The CI workflow scans the exact image with Trivy. A CRITICAL vulnerability
 causes a non-zero exit code, so the registry login and push cannot run.
 
-<!-- Evidence 02 will be added after the verified container/security run. -->
+The successful workflow shows that the container build and Trivy gate ran only
+after the three source-level gates passed, and that the release manifest was
+created only after the approved image was published.
+
+![Successful DevSecOps workflow and gated container delivery](evidence/02-ci-security-gates.png)
 
 ## Task 3: Publish only an approved image
 
@@ -92,7 +96,13 @@ The workflow uses job-level least-privilege permissions. Source-reading jobs
 cannot publish packages; only the gated container job receives
 `packages: write`.
 
-<!-- Evidence 03 will be added after the successful GitHub Actions run. -->
+The successful run published both the moving convenience tag and an immutable
+commit-derived tag to the repository's public GHCR package.
+
+- [Successful GitHub Actions run](https://github.com/nipun172006/devOps/actions/runs/39825619219)
+- [Published GHCR package](https://github.com/nipun172006/devOps/pkgs/container/devops)
+
+![Public GHCR package with latest and immutable Module 16 image tags](evidence/03-ghcr-package.png)
 
 ## Task 4: Deploy and verify on local Kubernetes
 
@@ -119,7 +129,7 @@ curl -s http://localhost:8080/health
 curl -s http://localhost:8080/api/release
 ```
 
-<!-- Evidence 04 will be added after the verified Kubernetes rollout. -->
+![Successful Minikube rollout and live API responses](evidence/04-kubernetes-rollout.png)
 
 ## Security controls
 
