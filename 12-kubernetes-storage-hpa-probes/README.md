@@ -35,9 +35,11 @@ kubectl exec -n storage-lab storage-demo -- \
   sh -c 'printf "Created before Pod recreation\n" > /data/proof.txt && cat /data/proof.txt'
 ```
 
-Take **Screenshot 1** now. It must show the default StorageClass, the PVC in
-`Bound` state, the Pod in `Running` state, and the text written to
-`/data/proof.txt`. Save it as `evidence/01-pvc-bound-and-file.jpg`.
+The first verification showed the default `standard` StorageClass, the
+`demo-data` claim in `Bound` state, the Pod at `1/1 Running`, and the text that
+was written to `/data/proof.txt`.
+
+![PVC bound and file written](evidence/01-pvc-bound-and-file.png)
 
 Delete only the Pod, create it again from the same manifest, and read the file
 from the unchanged claim:
@@ -54,9 +56,13 @@ kubectl exec -n storage-lab storage-demo -- cat /data/proof.txt
 kubectl get pvc,pod -n storage-lab
 ```
 
-Take **Screenshot 2** now. It must show two different Pod UIDs, the original
-text, and the PVC still `Bound`. Save it as
-`evidence/02-file-after-pod-recreation.jpg`.
+The original Pod UID was `52dacf38-15fa-4477-a136-bf518568919e`. After deleting
+and recreating only the Pod, its UID was
+`709cc5a1-cae4-415a-ba4d-93516c9a75b2`. The claim remained bound to volume
+`pvc-40718fa4-a74e-42bc-9126-04c50f994879`, and the new Pod printed the
+original text.
+
+![File survives Pod recreation](evidence/02-file-after-pod-recreation.png)
 
 The Pod is disposable, while the claim represents storage with a lifecycle
 independent of that Pod. Reusing the claim mounts the same data into the new

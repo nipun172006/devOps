@@ -2,8 +2,8 @@
 
 Add only screenshots produced by running the commands in the parent README.
 
-1. `01-pvc-bound-and-file.jpg`
-2. `02-file-after-pod-recreation.jpg`
+1. `01-pvc-bound-and-file.png` — captured
+2. `02-file-after-pod-recreation.png` — captured
 3. `03-readiness-failure.jpg`
 4. `04-liveness-restart.jpg`
 5. `05-hpa-before-load.jpg`
