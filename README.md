@@ -23,6 +23,7 @@ This is my DevOps homework repository. I saved my commands, screenshots, scripts
 | [Kubernetes Storage, HPA & Probes](12-kubernetes-storage-hpa-probes/README.md) | Complete |
 | [Kubernetes Troubleshooting](13-kubernetes-troubleshooting/README.md) | Complete |
 | [Helm Chart & Release Lifecycle](14-helm/README.md) | Complete |
+| [CI Pipeline with GitHub Actions](15-cicd-github-actions/README.md) | In progress — awaiting CI evidence |
 
 ## Environment
 
