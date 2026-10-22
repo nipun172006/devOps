@@ -1,6 +1,6 @@
 import pytest
 
-from app.health import ServiceState, deployment_summary, render_report
+from app.health import ServiceState, deployment_summary, main, render_report
 
 
 def test_fully_ready_service_is_healthy():
@@ -30,6 +30,16 @@ def test_invalid_replica_counts_are_rejected(ready, desired):
         ServiceState("api", ready=ready, desired=desired)
 
 
+def test_empty_service_name_is_rejected():
+    with pytest.raises(ValueError, match="name"):
+        ServiceState("  ", ready=1, desired=1)
+
+
+def test_empty_deployment_is_rejected():
+    with pytest.raises(ValueError, match="at least one"):
+        deployment_summary([])
+
+
 def test_summary_counts_services_and_replicas():
     summary = deployment_summary(
         [
@@ -53,3 +63,13 @@ def test_report_is_human_readable():
     assert "Deployment status: healthy" in report
     assert "Healthy services: 1/1" in report
     assert "Ready replicas: 2/2" in report
+
+
+def test_sample_application_prints_healthy_report(capsys):
+    main()
+
+    assert capsys.readouterr().out == (
+        "Deployment status: healthy\n"
+        "Healthy services: 3/3\n"
+        "Ready replicas: 6/6\n"
+    )

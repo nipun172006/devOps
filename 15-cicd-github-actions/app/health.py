@@ -24,9 +24,7 @@ class ServiceState:
     def status(self) -> str:
         """Return healthy only when every desired replica is ready."""
 
-        # The initial CI run deliberately contains this boundary bug. A
-        # partially ready rollout must not be reported as healthy.
-        if self.ready >= self.desired - 1:
+        if self.ready == self.desired:
             return "healthy"
         return "progressing"
 
