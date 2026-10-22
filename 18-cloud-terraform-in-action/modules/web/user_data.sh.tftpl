@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+
+dnf install -y python3 >/var/log/module18-dnf.log 2>&1
+install -d -m 0755 /opt/module18
+cat >/opt/module18/index.html <<'HTML'
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8"><title>Module 18</title></head>
+  <body><h1>${web_message}</h1><p>Served by a temporary EC2 instance managed by Terraform.</p></body>
+</html>
+HTML
+nohup python3 -m http.server 80 --directory /opt/module18 >/var/log/module18-http.log 2>&1 &
