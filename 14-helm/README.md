@@ -105,6 +105,8 @@ kubectl get deployment,service,pods --namespace helm-lab
 Helm recorded the rollback as a new deployed revision rather than deleting
 history. The application returned to two replicas and Service port `8080`.
 
+![Helm rollback recorded as revision 3](evidence/04-release-rollback.png)
+
 ## Cleanup
 
 ```bash
