@@ -122,7 +122,8 @@ Manifests:
 - [`03-hpa/application.yaml`](03-hpa/application.yaml)
 - [`03-hpa/load-generator.yaml`](03-hpa/load-generator.yaml)
 
-HPA requires CPU metrics. On Minikube, enable and verify `metrics-server`:
+HPA requires CPU metrics. I enabled and verified the Minikube
+`metrics-server` addon:
 
 ```bash
 minikube addons enable metrics-server
@@ -130,7 +131,8 @@ kubectl rollout status deployment/metrics-server -n kube-system --timeout=180s
 kubectl top nodes
 ```
 
-Deploy the application and wait for its first metric sample:
+I deployed the application with a `100m` CPU request and waited for its first
+metric sample:
 
 ```bash
 kubectl apply -f 03-hpa/application.yaml
@@ -139,8 +141,8 @@ kubectl get deployment,service,hpa -n autoscale-lab
 kubectl top pods -n autoscale-lab
 ```
 
-Generate traffic and watch the HPA. Metrics and scaling normally take one or
-two minutes to appear:
+I then started ten concurrent request workers in the load-generator Pod and
+watched the HPA:
 
 ```bash
 kubectl apply -f 03-hpa/load-generator.yaml
@@ -148,7 +150,8 @@ kubectl wait -n autoscale-lab --for=condition=Ready pod/load-generator --timeout
 kubectl get hpa -n autoscale-lab -w
 ```
 
-When `REPLICAS` is greater than `1`, press **Control+C**, then run:
+After the replica count increased, I stopped the watch and inspected the
+Deployment, Pods, and their CPU consumption:
 
 ```bash
 kubectl get hpa -n autoscale-lab
@@ -156,18 +159,29 @@ kubectl get deployment,pods -n autoscale-lab -o wide
 kubectl top pods -n autoscale-lab
 ```
 
-Stop the load and observe scale-down. The manifest shortens the scale-down
-stabilization window to 60 seconds for this lab, but metric updates can still
-take a few minutes.
+![HPA scales the application up under load](evidence/05-hpa-scaled-up.png)
+
+The measured CPU utilization reached `355%` against the `50%` target. HPA
+scaled the Deployment to its configured maximum of five replicas, and all five
+application Pods were `1/1 Running`. Each application Pod was actively using
+approximately `317m` to `379m` of CPU during the captured test.
+
+I deleted the load generator and watched the HPA reduce the replica count. The
+manifest uses a 60-second scale-down stabilization window so that this lab can
+be observed without waiting for the default five-minute window.
 
 ```bash
 kubectl delete -f 03-hpa/load-generator.yaml
 kubectl get hpa -n autoscale-lab -w
 ```
 
-The Deployment defines a CPU request because HPA calculates utilization as a
-percentage of the requested CPU. Under sustained load it increases replicas;
-after demand disappears it reduces them within the configured bounds.
+![HPA scales the application down after load stops](evidence/06-hpa-scaled-down.png)
+
+After load stopped, the reported utilization fell from `355%` to `1%`. The HPA
+reduced the Deployment from five replicas to four and finally to one. The
+Deployment defines a CPU request because HPA calculates utilization as a
+percentage of requested CPU. Under sustained load it increased replicas, and
+after demand disappeared it reduced them within the configured bounds.
 
 ## Cleanup
 
