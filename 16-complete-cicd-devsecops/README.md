@@ -84,8 +84,8 @@ On a push, the container job authenticates to `ghcr.io` with the temporary
 GitHub token and publishes two tags only after all required gates pass:
 
 ```text
-ghcr.io/nipun172006/devops-module16:<commit-sha>
-ghcr.io/nipun172006/devops-module16:latest
+ghcr.io/nipun172006/devops:module16-<commit-sha>
+ghcr.io/nipun172006/devops:module16-latest
 ```
 
 The workflow uses job-level least-privilege permissions. Source-reading jobs

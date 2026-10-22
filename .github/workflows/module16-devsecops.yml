@@ -20,7 +20,8 @@ concurrency:
 
 env:
   MODULE_DIRECTORY: 16-complete-cicd-devsecops
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/devops-module16
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/devops
+  IMAGE_TAG: module16-${{ github.sha }}
 
 jobs:
   quality:
@@ -128,8 +129,8 @@ jobs:
           load: true
           push: false
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ github.sha }}
-            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            ${{ env.IMAGE_NAME }}:module16-latest
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
             org.opencontainers.image.revision=${{ github.sha }}
@@ -137,7 +138,7 @@ jobs:
       - name: Enforce Trivy vulnerability gate
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          image-ref: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          image-ref: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           format: table
           severity: CRITICAL
           ignore-unfixed: true
@@ -154,8 +155,8 @@ jobs:
       - name: Publish approved image
         if: github.event_name == 'push'
         run: |
-          docker push "${IMAGE_NAME}:${GITHUB_SHA}"
-          docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+          docker push "${IMAGE_NAME}:module16-latest"
 
   release-manifest:
     name: Kubernetes Release Manifest
@@ -172,7 +173,7 @@ jobs:
       - name: Render immutable image tag
         run: |
           ./scripts/render_manifest.sh \
-            "${IMAGE_NAME}:${GITHUB_SHA}" \
+            "${IMAGE_NAME}:${IMAGE_TAG}" \
             build/k8s-release
           grep -n "image:" build/k8s-release/deployment.yaml
 
