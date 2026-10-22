@@ -78,6 +78,8 @@ The workflow uses pinned major action versions, read-only repository
 permissions, path filters, and dependency caching. No credentials are stored
 in the workflow or source code.
 
+![Successful GitHub Actions jobs and downloadable artifacts](evidence/03-ci-success-artifacts.png)
+
 ## Run the final application
 
 ```bash
