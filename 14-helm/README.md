@@ -36,6 +36,8 @@ helm template practice-web 14-helm/webapp-chart \
 `helm template` renders ordinary Kubernetes YAML locally, which makes it useful
 for reviewing changes before they reach a cluster.
 
+![Helm chart files, successful lint, and rendered defaults](evidence/01-chart-lint-render.png)
+
 ## Task 2: Install and verify a configurable release
 
 I installed the chart as release `practice-web` in namespace `helm-lab`:
