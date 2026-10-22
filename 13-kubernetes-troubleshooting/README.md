@@ -33,6 +33,8 @@ The Pod could not start because kubelet could not download the nonexistent
 image. `kubectl get` showed the waiting state, while the Pod events exposed the
 failed image pull and back-off messages.
 
+![ImagePullBackOff diagnosis and registry events](evidence/01-image-pull-failure.png)
+
 I corrected the image tag and verified the rollout:
 
 ```bash
@@ -45,7 +47,10 @@ kubectl get deployment image-demo -n troubleshooting-lab \
 ```
 
 The replacement Pod reached `1/1 Running` with the valid
-`nginx:1.27-alpine` image.
+`nginx:1.27-alpine` image. At the moment of verification, the broken Pod was
+still terminating while its healthy replacement was already available.
+
+![Corrected image rollout](evidence/02-image-pull-fixed.png)
 
 ## Task 2: Diagnose and correct CrashLoopBackOff
 
