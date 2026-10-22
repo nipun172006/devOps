@@ -1,0 +1,35 @@
+# Terraform working data
+.terraform/
+.terraform.tfstate.lock.info
+
+# State and backup state
+*.tfstate
+*.tfstate.*
+
+# Saved plans
+*.tfplan
+tfplan
+
+# Local variable and override files
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform and provider logs
+crash.log
+crash.*.log
+*.log
+
+# Credentials and local environment
+.env
+*.pem
+*.key
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/

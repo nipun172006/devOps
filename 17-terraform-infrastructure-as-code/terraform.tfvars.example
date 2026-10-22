@@ -1,0 +1,4 @@
+aws_region   = "ap-south-1"
+project_name = "nipun-terraform-lab"
+environment  = "dev"
+owner        = "nipun172006"
