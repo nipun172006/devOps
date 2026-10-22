@@ -1,0 +1,7 @@
+The {{ .Release.Name }} release is ready.
+
+To test it from inside the cluster:
+
+  kubectl run helm-client --rm -it --restart=Never \
+    --image=busybox:1.36 --namespace {{ .Release.Namespace }} -- \
+    wget -qO- http://{{ include "practice-web.fullname" . }}:{{ .Values.service.port }}
