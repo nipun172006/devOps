@@ -64,22 +64,27 @@ The sample application deliberately exits unless `STARTUP_MODE` is set to
 
 ```bash
 kubectl apply -f 02-crash-loop/broken-deployment.yaml
-sleep 20
 
 POD=$(kubectl get pod -n troubleshooting-lab -l app=crashloop-demo \
   -o jsonpath='{.items[0].metadata.name}')
+
+until [ "$(kubectl get pod -n troubleshooting-lab "$POD" \
+  -o jsonpath='{.status.containerStatuses[0].state.waiting.reason}')" = "CrashLoopBackOff" ]; do
+  sleep 2
+done
+
 kubectl get pod -n troubleshooting-lab "$POD"
-kubectl logs -n troubleshooting-lab "$POD" --previous
+kubectl logs -n troubleshooting-lab "$POD" --tail=20
 kubectl get pod -n troubleshooting-lab "$POD" \
-  -o jsonpath='Last exit code: {.status.containerStatuses[0].lastState.terminated.exitCode}{"\n"}Restart count: {.status.containerStatuses[0].restartCount}{"\n"}'
-kubectl get events -n troubleshooting-lab \
-  --field-selector involvedObject.name="$POD" \
-  --sort-by=.lastTimestamp | tail -8
+  -o jsonpath='Waiting reason: {.status.containerStatuses[0].state.waiting.reason}{"\n"}Last exit code: {.status.containerStatuses[0].lastState.terminated.exitCode}{"\n"}Restart count: {.status.containerStatuses[0].restartCount}{"\n"}'
 ```
 
-The previous container log identified the invalid setting, the last state
-showed exit code `1`, and the restart count confirmed that kubelet was repeatedly
-trying to recover the container.
+The container log identified `STARTUP_MODE=broken` and explained that the mode
+must be `healthy`. Kubernetes reported `CrashLoopBackOff`, the last process
+exit code was `1`, and the restart count reached five, confirming that kubelet
+was repeatedly trying to recover the container.
+
+![CrashLoopBackOff diagnosis](evidence/03-crashloop-diagnosis.png)
 
 I changed `STARTUP_MODE` to `healthy` and verified recovery:
 
@@ -96,6 +101,8 @@ kubectl logs -n troubleshooting-lab "$POD"
 
 The corrected Pod stayed `1/1 Running`, and its log confirmed that the healthy
 configuration was accepted.
+
+![CrashLoopBackOff configuration fixed](evidence/04-crashloop-fixed.png)
 
 ## Task 3: Diagnose and correct a Service selector
 
