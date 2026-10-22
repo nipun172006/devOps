@@ -25,11 +25,11 @@ This is my DevOps homework repository. I saved my commands, screenshots, scripts
 | [Helm Chart & Release Lifecycle](14-helm/README.md) | Complete |
 | [CI Pipeline with GitHub Actions](15-cicd-github-actions/README.md) | Complete |
 | [Complete CI/CD DevSecOps Pipeline](16-complete-cicd-devsecops/README.md) | Complete |
-| [Terraform Infrastructure as Code Fundamentals](17-terraform-infrastructure-as-code/README.md) | In progress — awaiting evidence |
+| [Terraform Infrastructure as Code Fundamentals](17-terraform-infrastructure-as-code/README.md) | Complete |
 
 ## Environment
 
-The Linux, shell, networking, Git, and Docker tasks were executed on my Ubuntu AWS EC2 instance. The Kubernetes labs were executed locally on my Mac with Minikube using the Docker driver.
+The Linux, shell, networking, Git, and Docker tasks were executed on my Ubuntu AWS EC2 instance. The Kubernetes labs were executed locally on my Mac with Minikube using the Docker driver. The Terraform fundamentals lab provisioned a temporary secured S3 environment in `ap-south-1`, verified it through the AWS API, and destroyed it after validation.
 
 ![My AWS EC2 instance](01-linux-fundamentals/evidence/ec2-instance.png)
 

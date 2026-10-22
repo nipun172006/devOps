@@ -8,7 +8,7 @@
 
 # Saved plans
 *.tfplan
-tfplan
+tfplan*
 
 # Local variable and override files
 *.tfvars

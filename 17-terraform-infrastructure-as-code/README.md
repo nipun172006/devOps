@@ -73,7 +73,7 @@ and the mock-provider test verifies the security controls without creating
 cloud resources. `plan` previews the real AWS changes. A saved plan makes the
 reviewed operations explicit and repeatable.
 
-<!-- Evidence 01 will be added after the verified init and plan. -->
+![Terraform initialization, validation, tests, and reviewed AWS plan](evidence/01-init-validate-plan.png)
 
 ## Task 2: Apply and inspect outputs and state
 
@@ -98,25 +98,26 @@ aws s3api get-bucket-encryption --bucket "$BUCKET"
 aws s3api get-bucket-versioning --bucket "$BUCKET"
 ```
 
-<!-- Evidence 02 will be added after the verified apply and state inspection. -->
+![Terraform apply, outputs, state, and live AWS security verification](evidence/02-apply-state-security.png)
 
 ## Task 3: Demonstrate an in-place configuration change
 
-Change `environment = "dev"` to `environment = "test"` in the ignored local
-`terraform.tfvars`, then run:
+Change `owner = "nipun172006"` to `owner = "devops-student"` in the ignored
+local `terraform.tfvars`, then run:
 
 ```bash
 terraform plan
 ```
 
-Terraform should propose tag changes with `~ update in-place`, rather than
-recreating the bucket. After reviewing the plan:
+Because this input affects only a tag, Terraform should propose
+`~ update in-place` rather than recreating the bucket. After reviewing the
+plan:
 
 ```bash
 terraform apply
 ```
 
-<!-- Evidence 03 will be added after the verified update plan and apply. -->
+![In-place Terraform tag update verified through the live AWS API](evidence/03-in-place-update.png)
 
 ## Task 4: Preview and perform safe cleanup
 
@@ -132,7 +133,7 @@ terraform state list
 An empty `terraform state list` after destroy confirms that no resources from
 this configuration remain managed.
 
-<!-- Evidence 04 will be added after the verified destroy. -->
+![Reviewed destroy plan, successful cleanup, and empty Terraform state](evidence/04-reviewed-destroy.png)
 
 ## Security controls
 
