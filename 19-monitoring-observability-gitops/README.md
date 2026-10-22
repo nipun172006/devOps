@@ -183,11 +183,16 @@ sum(rate(module19_http_requests_total[2m]))
 The dashboard is titled `Module 19 API Overview` and contains request rate,
 p95 latency, and requests-by-status panels. The alert rule
 `Module19ApiErrors` fires when the two-minute 5xx request rate remains above
-zero for one minute.
+zero for one minute. The target-health capture is a Prometheus view from the
+same local monitoring run; the Module 19-specific target health was also
+checked through the Prometheus targets API. The query capture shows the real
+non-zero Module 19 request rate.
 
-![Prometheus target discovery and a real PromQL result](evidence/02-prometheus-target-and-query.png)
+![Prometheus target-health view](evidence/02-prometheus-target-health.png)
 
-![Grafana dashboard and Module 19 alert configuration](evidence/03-grafana-dashboard-and-alert.png)
+![Real Module 19 PromQL result](evidence/02-prometheus-target-and-query.png)
+
+![Grafana Module 19 API dashboard](evidence/03-grafana-dashboard-and-alert.png)
 
 ## Task 5: Argo CD sync, Git update, and self-heal
 
@@ -214,10 +219,18 @@ kubectl get deployment module19-api -n observability-lab
 kubectl get application module19-observability -n argocd
 ```
 
-Argo CD restored the declared replica count of two while the Application
-remained `Synced` and `Healthy`.
+The initial capture shows the Application `Synced` and `Healthy` with two
+ready replicas. The additional captures show the harmless live scale drift and
+Argo CD's reconciliation window. The final two-replica state was verified in
+the live cluster run; the attached terminal captures stop during reconciliation
+and therefore are retained as intermediate drift evidence rather than being
+presented as a fabricated final-state screenshot.
 
-![Argo CD Synced and Healthy status, Git update, and self-heal](evidence/04-argocd-sync-and-self-heal.png)
+![Argo CD initial Synced and Healthy state with controlled drift](evidence/04-argocd-sync-and-self-heal.png)
+
+![Argo CD reconciliation in progress](evidence/04-argocd-reconciliation-progress.png)
+
+![Argo CD drift state](evidence/04-argocd-drift-state.png)
 
 ## Cleanup
 
