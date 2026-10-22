@@ -145,7 +145,7 @@ two minutes to appear:
 ```bash
 kubectl apply -f 03-hpa/load-generator.yaml
 kubectl wait -n autoscale-lab --for=condition=Ready pod/load-generator --timeout=120s
-kubectl get hpa,pods -n autoscale-lab -w
+kubectl get hpa -n autoscale-lab -w
 ```
 
 When `REPLICAS` is greater than `1`, press **Control+C**, then run:
@@ -162,7 +162,7 @@ take a few minutes.
 
 ```bash
 kubectl delete -f 03-hpa/load-generator.yaml
-kubectl get hpa,pods -n autoscale-lab -w
+kubectl get hpa -n autoscale-lab -w
 ```
 
 The Deployment defines a CPU request because HPA calculates utilization as a
