@@ -59,6 +59,8 @@ The default values deploy two Nginx replicas using image
 `nginx:1.27-alpine`. The ClusterIP Service accepts traffic on configurable port
 `8080` and forwards it to the named HTTP container port.
 
+![Installed Helm release and Kubernetes resources](evidence/02-release-installed.png)
+
 ## Task 3: Upgrade the release and inspect its history
 
 Upgrade values: [`values-upgrade.yaml`](values-upgrade.yaml)
