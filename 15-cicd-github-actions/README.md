@@ -46,6 +46,11 @@ python -m pytest tests -v --cov=app --cov-report=term-missing
 ./build.sh
 ```
 
+The final local run passed all 11 tests with 97% line coverage, produced the
+versioned archive and checksum, and printed a healthy sample deployment.
+
+![Local lint, tests, coverage, build, and application output](evidence/01-local-validation.png)
+
 ## Task 2: Prove that a failed test blocks the build
 
 A pushed version incorrectly treated a partially ready rollout as
