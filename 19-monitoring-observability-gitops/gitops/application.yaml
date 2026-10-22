@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/nipun172006/devOps.git
-    targetRevision: module19-observability-gitops
+    targetRevision: main
     path: 19-monitoring-observability-gitops/k8s
   destination:
     server: https://kubernetes.default.svc
