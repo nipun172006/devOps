@@ -83,6 +83,8 @@ kubectl get deployment,service,pods --namespace helm-lab
 The successful upgrade created release revision `2`. Helm retained revision
 `1`, allowing the change to be audited and reversed.
 
+![Helm release upgraded to revision 2](evidence/03-release-upgraded.png)
+
 ## Task 4: Roll back to the original revision
 
 I rolled the release back to revision `1` and verified the effective values and
