@@ -42,13 +42,13 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
 ruff check app tests
-pytest tests -v --cov=app --cov-report=term-missing
+python -m pytest tests -v --cov=app --cov-report=term-missing
 ./build.sh
 ```
 
 ## Task 2: Prove that a failed test blocks the build
 
-The first pushed version incorrectly treated a partially ready rollout as
+A pushed version incorrectly treated a partially ready rollout as
 healthy. The test for two ready replicas out of three expected `progressing`
 and failed. In that workflow run, the lint job passed, the test job failed, and
 the dependent build job was skipped.
