@@ -28,7 +28,8 @@ echo
 helm lint 14-helm/webapp-chart
 echo
 helm template practice-web 14-helm/webapp-chart \
-  --namespace helm-lab | grep -E '^(kind:|  name:|  replicas:|    image:|  type:|  port:)'
+  --namespace helm-lab | \
+  grep -E '^(kind:|[[:space:]]+(name: practice-web|replicas:|image:|type:|port:))'
 ```
 
 `helm lint` checks the chart structure and catches common template errors.
